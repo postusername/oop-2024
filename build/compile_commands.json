@@ -1,0 +1,134 @@
+[
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/Skills/DoubleDamage.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/Skills/DoubleDamage.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/Skills/DoubleDamage.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/Skills/DoubleDamage.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/Skills/Scanner.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/Skills/Scanner.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/Skills/Scanner.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/Skills/Scanner.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/Skills/Bombing.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/Skills/Bombing.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/Skills/Bombing.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/Skills/Bombing.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/Exceptions/SkillException.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/Exceptions/SkillException.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/Exceptions/SkillException.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/Exceptions/SkillException.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/Exceptions/AttackCoordsException.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/Exceptions/AttackCoordsException.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/Exceptions/AttackCoordsException.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/Exceptions/AttackCoordsException.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/Exceptions/ShipException.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/Exceptions/ShipException.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/Exceptions/ShipException.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/Exceptions/ShipException.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/Factories/DoubleDamageFactory.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/Factories/DoubleDamageFactory.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/Factories/DoubleDamageFactory.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/Factories/DoubleDamageFactory.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/Factories/ScannerFactory.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/Factories/ScannerFactory.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/Factories/ScannerFactory.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/Factories/ScannerFactory.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/Factories/BombingFactory.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/Factories/BombingFactory.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/Factories/BombingFactory.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/Factories/BombingFactory.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/Game/GameController.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/Game/GameController.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/Game/GameController.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/Game/GameController.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/Game/GameSettings.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/Game/GameSettings.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/Game/GameSettings.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/Game/GameSettings.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/Game/GameState.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/Game/GameState.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/Game/GameState.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/Game/GameState.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/IO/InputProcessor.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/IO/InputProcessor.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/IO/InputProcessor.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/IO/InputProcessor.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/IO/OutputProcessor.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/IO/OutputProcessor.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/IO/OutputProcessor.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/IO/OutputProcessor.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/SkillManager.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/SkillManager.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/SkillManager.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/SkillManager.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/Cell.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/Cell.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/Cell.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/Cell.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/GameBoard.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/GameBoard.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/GameBoard.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/GameBoard.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/main.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/main.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/main.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/Ship.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/Ship.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/Ship.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/Ship.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/ShipManager.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/ShipManager.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/ShipManager.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/ShipManager.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/Players/ComputerPlayer.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/Players/ComputerPlayer.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/Players/ComputerPlayer.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/Players/ComputerPlayer.cpp.o"
+},
+{
+  "directory": "/home/postusername/Projects/labs/oop/v0.3/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/BattleShips.dir/src/Players/UserPlayer.cpp.o -c /home/postusername/Projects/labs/oop/v0.3/src/Players/UserPlayer.cpp",
+  "file": "/home/postusername/Projects/labs/oop/v0.3/src/Players/UserPlayer.cpp",
+  "output": "CMakeFiles/BattleShips.dir/src/Players/UserPlayer.cpp.o"
+}
+]
