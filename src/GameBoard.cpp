@@ -32,15 +32,15 @@ const Cell& GameBoard::operator()(size_t x, size_t y) {
     return board[y][x];
 }
 
-void GameBoard::placeShip(size_t x, size_t y, Ship& ship){
+void GameBoard::placeShip(size_t x, size_t y, Ship* ship){
     checkShipCoords(x, y, ship);
-    if (ship.getOrientation() == Orientation::Horizontal){
-        for(size_t i = 0; i < ship.getLength(); i++){
+    if (ship->getOrientation() == Orientation::Horizontal){
+        for(size_t i = 0; i < ship->getLength(); i++){
             board[y][x + i].placeShipSegment(ship, i);
         }
     }
-    else if (ship.getOrientation() == Orientation::Vertical){
-        for(size_t i = 0; i < ship.getLength(); i++){
+    else if (ship->getOrientation() == Orientation::Vertical){
+        for(size_t i = 0; i < ship->getLength(); i++){
             board[y + i][x].placeShipSegment(ship, i);
         }
     }
@@ -57,8 +57,10 @@ void GameBoard::attackCell(size_t x, size_t y, int damage) {
     checkAttackCoords(x, y);
     if (board[y][x].isShip()) {
         board[y][x].attackShip(damage);
-        if(board[y][x].getStatus() == ViewState::Unknown) {
+        if (board[y][x].getStatus() == ViewState::Unknown) {
             board[y][x].setStatus(ViewState::Ship);
+            if (board[y][x].ship->isDestroyed())
+                board[y][x].setStatus(ViewState::Destroyed);
         };
     }
     else {
@@ -68,24 +70,24 @@ void GameBoard::attackCell(size_t x, size_t y, int damage) {
     }
 }
 
-void GameBoard::checkShipCoords(size_t x, size_t y, Ship& ship) const {
+void GameBoard::checkShipCoords(size_t x, size_t y, Ship* ship) const {
     if (x >= width || y >= height) {
         throw ShipOutOfBoundsException();
     }
     size_t xi;
     size_t yi;
-    if (ship.getOrientation() == Orientation::Vertical) {
-        if ((y > height - ship.getLength()) || (height - ship.getLength() < 0)) {
+    if (ship->getOrientation() == Orientation::Vertical) {
+        if ((y > height - ship->getLength()) || (height - ship->getLength() < 0)) {
             throw ShipOutOfBoundsException();
         }
-        yi = y + ship.getLength();
+        yi = y + ship->getLength();
         xi = x + 1;
-    } else if (ship.getOrientation() == Orientation::Horizontal) {
-        if ((x > width - ship.getLength()) || (width - ship.getLength() < 0)) {
+    } else if (ship->getOrientation() == Orientation::Horizontal) {
+        if ((x > width - ship->getLength()) || (width - ship->getLength() < 0)) {
             throw ShipOutOfBoundsException();
         }
         yi = y + 1;
-        xi = x + ship.getLength();
+        xi = x + ship->getLength();
     }
 
     size_t yStart = (y == 0) ? 0 : y - 1;

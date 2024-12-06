@@ -49,7 +49,7 @@ void GameController::startNewGame() {
 }
 
 void GameController::playRound(bool from_save) {
-    OutputProcessor::showMessage("Round " + std::to_string(gameState->getRoundNumber()));
+    OutputProcessor::showMessage("\033[1mRound " + std::to_string(gameState->getRoundNumber()) + "\033[0m");
     if (gameState->getRoundNumber() > 1 || !from_save){
         gameState->getAI().createShips(gameState->getGameMode());
     }
@@ -70,14 +70,14 @@ void GameController::playRound(bool from_save) {
 }
 
 void GameController::makeMove() {
-    outputProcessor->drawBoards(gameState->getUser().getGameBoard(), gameState->getAI().getGameBoard());
-    //outputProcessor->drawShips(gameState->getUser().getShipManager(), gameState->getAI().getShipManager());
-
     std::cout << std::endl;
-    std::cout << "Доступные способности:" << std::endl;
+    std::cout << "\033[1mДоступные способности:\033[0m" << std::endl;
     gameState->getUser().getAbilityManager().showAbilities();
 
     if (userTurn) {
+        outputProcessor->drawBoards(gameState->getUser().getGameBoard(), gameState->getAI().getGameBoard());
+        outputProcessor->drawShips(gameState->getUser().getShipManager(), gameState->getAI().getShipManager());
+
         GameBoard& aiBoard = gameState->getAI().getGameBoard();
         ShipManager& aiShipManager = gameState->getAI().getShipManager();
         Option userChoice = gameState->getUser().makeMove(aiBoard, aiShipManager);
@@ -86,11 +86,11 @@ void GameController::makeMove() {
                 gameStatus = GameStatus::Exit;
                 return;
             case Option::SaveGame:
-                gameState->saveGame();
-                break;
+                gameState->saveGame("game_state.txt");
+                return;
             case Option::LoadGame:
                 gameState->loadGame("game_state.txt");
-                break;
+                return;
         }
     } else {
         gameState->getAI().makeMove(gameState->getUser().getGameBoard());

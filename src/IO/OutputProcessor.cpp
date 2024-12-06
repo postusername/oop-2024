@@ -23,7 +23,8 @@ void OutputProcessor::drawBoard(GameBoard& board) const {
         for (size_t j = 0; j < width; ++j) {
             char statusSymbol;
             switch (board(j, i).getStatus()) {
-                case ViewState::Ship: statusSymbol = 'X'; break;
+                case ViewState::Ship: statusSymbol = '#'; break;
+                case ViewState::Destroyed: statusSymbol = 'X'; break;
                 case ViewState::Empty: statusSymbol = '.'; break;
                 case ViewState::Unknown: statusSymbol = '?'; break;
             }
@@ -36,25 +37,26 @@ void OutputProcessor::drawBoard(GameBoard& board) const {
 void OutputProcessor::drawPlayerShips(ShipManager &shipManager) const {
     for (int i = 0; i < shipManager.getShipsCount(); i++) {
         std::cout << "Ship " << i + 1 << ": ";
-        for (int j = 0; j < shipManager[i].getLength(); j++) {
-            std::cout << shipManager[i].getSegmentStatus(j) << " ";
+        for (int j = 0; j < shipManager[i]->getLength(); j++) {
+            if (j > 0) std::cout << "+";
+            std::cout << shipManager[i]->getSegmentStatus(j);
         }
         std::cout << std::endl;
     }
 }
 
 void OutputProcessor::drawBoards(GameBoard &userBoard, GameBoard &aiBoard) const {
-    OutputProcessor::showMessage("Your board:");
+    OutputProcessor::showMessage("\033[34mYour board:\033[39m");
     drawBoard(userBoard);
     OutputProcessor::showMessage("");
-    OutputProcessor::showMessage("AI board:");
+    OutputProcessor::showMessage("\033[31mAI board:\033[39m");
     drawBoard(aiBoard);
 }
 
 void OutputProcessor::drawShips(ShipManager &userShipManager, ShipManager &aiShipManager) const {
-    OutputProcessor::showMessage("Your ships:");
+    OutputProcessor::showMessage("\033[34mYour ships:\033[39m");
     drawPlayerShips(userShipManager);
     OutputProcessor::showMessage("");
-    OutputProcessor::showMessage("AI ships:");
+    OutputProcessor::showMessage("\033[31mAI ships:\033[39m");
     drawPlayerShips(aiShipManager);
 }

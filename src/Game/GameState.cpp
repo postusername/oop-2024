@@ -43,80 +43,67 @@ GameSettings &GameState::getGameMode() {
     return *gameMode;
 }
 
-void GameState::saveGame() {
-    try {
-        std::ofstream outFile("game_state.txt");
-        if (!outFile) {
-            std::cerr << "Error opening file for saving game state!" << std::endl;
-            return;
+void GameState::saveGame(std::string filename, bool calc_checksum) {
+    std::ifstream inFile;
+    unsigned char check_sum = 0;
+
+    if (calc_checksum) {
+        inFile.open(filename); // НЕ РАБОТАЕТ ЕСЛИ ОТКРЫТЬ В КОНСТРУКТОРЕ ИЛИ СОЗДАТЬ ТУТ
+        if (!inFile) {
+            std::cerr << "Error while reopening file for saving game state!" << std::endl;
+            exit(1);
         }
-        outFile << *this;
-        outFile.close();
-    }
-    catch (std::exception& e) {
-        std::cerr << e.what() << std::endl;
-    }
-    /*std::ifstream inFile("game_state.txt");
-    if (!inFile) {
-        std::cerr << "Error while reopening file for saving game state!" << std::endl;
-        return;
+
+        while (inFile.peek() != EOF) {
+            unsigned char byte;
+            inFile >> byte;
+            check_sum ^= byte;
+        }
+        inFile.close();
     }
 
-    unsigned short check_sum = 0;
-    while (inFile.peek() != EOF ) {
-        unsigned char byte;
-        inFile >> byte;
-        check_sum += byte;
+    std::ofstream outFile(filename, std::ios::trunc | std::ios::binary);
+    if (!outFile) {
+        std::cerr << "Error opening file for saving game state!" << std::endl;
+        exit(1);
     }
-    inFile.close();
-
-    std::ofstream realoutFile("game_state.txt", std::ios::trunc);
-    if (!realoutFile) {
-        std::cerr << "Error reopening file for saving game state!" << std::endl;
-        return;
-    }
-    realoutFile << check_sum << '\n';
-    realoutFile << *this;
-    realoutFile.close();*/
-    std::cout << "GameController state saved successfully!" << std::endl;
+    if (calc_checksum)
+        outFile << check_sum << '\n';
+    outFile << *this;
+    outFile.close();
+    if (calc_checksum)
+        std::cout << "GameController state saved successfully!" << std::endl;
+    else
+        saveGame(filename, !calc_checksum);
 }
 
-void GameState::loadGame(std::string filename) {
-    try {
-        std::ifstream inFile(filename);
-        if (!inFile) {
-            std::cerr << "Error opening file for loading game state!" << std::endl;
-            return;
-        }
-        inFile >> *this;
-        std::cout << "GameController state loaded successfully!" << std::endl;
-    }
-    catch (std::exception& e) {
-        std::cerr << e.what() << std::endl;
-    }
-
-    /*unsigned short check_sum, file_sum;
-    inFile >> file_sum;
-    check_sum = 0;
-    while (inFile.peek() != EOF) {
-        unsigned char byte;
-        inFile >> byte;
-        check_sum += byte;
-    }
-
-    if (check_sum != file_sum) {
-        std::cerr << "Saving is broken!" << std::endl;
-        inFile.close();
+void GameState::loadGame(std::string filename, bool calc_checksum) {
+    unsigned char check_sum = 0;
+    std::ifstream inFile(filename, std::ios::binary);
+    if (!inFile) {
+        std::cerr << "Error opening file for loading game state!" << std::endl;
         exit(1);
     }
     
+    if (calc_checksum) {
+        while (inFile.peek() != EOF) {
+            unsigned char byte;
+            inFile >> byte;
+            check_sum ^= byte;
+        }
+        inFile.close();
 
-    std::ifstream realinFile(filename);
-    unsigned short cs; realinFile >> cs;*/
-}
+        if (check_sum != 0) {
+            std::cerr << "Saving is broken!" << std::endl;
+            exit(1);
+        }
 
-bool GameState::checkSave(std::ifstream* inFile) {
-    return true;
+        loadGame(filename, !calc_checksum);
+    } else {
+        inFile >> check_sum;
+        inFile >> *this;
+        std::cout << "GameController state loaded successfully!" << std::endl;
+    }
 }
 
 std::ostream& operator<<(std::ostream& os, const GameState& state) {

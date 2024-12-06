@@ -21,9 +21,8 @@ private:
     unsigned short length;
     Orientation orientation;
     std::vector<SegmentStatus> segments;
-
 public:
-    Ship(unsigned short length, Orientation orientation);
+    Ship(unsigned short length, Orientation orientation, size_t x, size_t y);
     unsigned short getLength() const;
     Orientation getOrientation() const;
     SegmentStatus getSegmentStatus(unsigned short index) const;
@@ -31,4 +30,5 @@ public:
     bool isDestroyed() const;
     friend std::istream& operator>>(std::istream& is, Ship& ship);
     friend std::ostream& operator<<(std::ostream& os, Ship& ship);
+    size_t x, y;
 };

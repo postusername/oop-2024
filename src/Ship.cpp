@@ -2,8 +2,9 @@
 #include <sstream>
 
 
-Ship::Ship(unsigned short length, Orientation orientation)
-    : length(length), orientation(orientation), segments(length, SegmentStatus::Undamaged) {}
+Ship::Ship(unsigned short length, Orientation orientation, size_t x, size_t y)
+    : length(length), orientation(orientation), segments(length, SegmentStatus::Undamaged),
+    x(x), y(y) {}
 
 unsigned short Ship::getLength() const {
     return this->length;
@@ -40,12 +41,9 @@ std::ostream& operator<<(std::ostream& os, Ship& ship) {
     os << (ship.getOrientation() == Horizontal ? "Horizontal" : "Vertical") << ' ';
 
     for (unsigned short i = 0; i < ship.getLength(); ++i) {
-        os << static_cast<int>(ship.getSegmentStatus(i));
-        if (i < ship.getLength() - 1) {
-            os << ' ';
-        }
+        os << static_cast<int>(ship.getSegmentStatus(i)) << ' ';
     }
-    os << '\n';
+    os << ship.x << ' ' << ship.y << '\n';
 
     return os;
 }
@@ -54,12 +52,13 @@ std::istream& operator>>(std::istream& is, Ship& ship) {
     unsigned short length;
     std::string orientation;
     std::vector<SegmentStatus> segments;
+    size_t x, y;
 
     is >> length;
     if (is.fail()) {
         throw std::runtime_error("Invalid format for Length");
     }
-    ship = Ship(length, Horizontal); // Устанавливаем ориентацию по умолчанию
+    ship = Ship(length, Horizontal, 0, 0); // Устанавливаем ориентацию по умолчанию
 
     is >> orientation;
     if (orientation == "Horizontal") {
@@ -82,6 +81,8 @@ std::istream& operator>>(std::istream& is, Ship& ship) {
     if (segments.size() != length) {
         throw std::runtime_error("Segment count does not match ship length");
     }
-
+    ship.segments = segments;
+    is >> ship.x >> ship.y;
+    
     return is;
 }

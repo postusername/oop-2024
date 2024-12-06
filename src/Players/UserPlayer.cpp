@@ -26,21 +26,23 @@ void UserPlayer::createShips(const GameSettings &gameMode) {
     userBoard = new GameBoard(gameMode.boardSize, gameMode.boardSize);
     userShipManager = new ShipManager(gameMode.shipLengths);
 
+    OutputProcessor::showMessage("Placing \033[34myour ships:\033[39m"); 
     for (size_t i = 0; i < gameMode.shipLengths.size(); i++)
     {
         bool validInput = false;
         while (!validInput) {
             try {
-                OutputProcessor::showMessage("Setting up Ship " + std::to_string(i + 1) +
-                    " (Length: " + std::to_string(gameMode.shipLengths[i]) + ")"); 
+                OutputProcessor::showMessage("\033[1mSetting up Ship " + std::to_string(i + 1) +
+                    "\033[0m (Length: " + std::to_string(gameMode.shipLengths[i]) + ")"); 
 
                 Orientation orientation = inputProcessor.readShipOrientation();
-                Ship* currentShip = new Ship(gameMode.shipLengths[i], orientation);
-                userShipManager->addShip(currentShip);
-
                 auto coords = InputProcessor::readCoords();
                 size_t x = coords.first, y = coords.second;
-                userBoard->placeShip(x, y, *currentShip);
+
+                Ship* currentShip = new Ship(gameMode.shipLengths[i], orientation, x, y);
+                userShipManager->addShip(currentShip);
+
+                userBoard->placeShip(x, y, currentShip);
 
                 validInput = true;
             } catch (const std::invalid_argument& e) {
@@ -143,6 +145,10 @@ std::istream& operator>>(std::istream& is, UserPlayer& player) {
     try {
         is >> *player.userBoard;
         is >> *player.userShipManager;
+        for (auto i = 0; i < player.userShipManager->getShipsCount(); i++) {
+            Ship* ship = player.userShipManager->operator[](i);
+            player.userBoard->placeShip(ship->x, ship->y, ship);
+        }
         is >> *player.skillManager;
     } catch (const std::ios_base::failure& e) {
         throw std::ios_base::failure("Error reading UserPlayer: " + std::string(e.what()));

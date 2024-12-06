@@ -42,7 +42,11 @@ SkillManager::~SkillManager() {
 void SkillManager::showAbilities() const {
     std::queue<ISkill*> copy = abilities;
     while (!copy.empty()) {
-        std::cout << copy.front()->getName() << std::endl;
+        if (copy.size() == abilities.size())
+            std::cout << "\033[4m";
+        std::cout << "-  " << copy.front()->getName() << std::endl;
+        if (copy.size() == abilities.size())
+            std::cout << "\033[0m";
         copy.pop();
     }
     std::cout << std::endl;

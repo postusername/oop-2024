@@ -23,11 +23,11 @@ void ShipManager::addShip(Ship* ship) {
     this->ships.push_back(ship);
 }
 
-Ship& ShipManager::operator[](unsigned short index) {
+Ship* ShipManager::operator[](unsigned short index) {
     if (index >= this->shipCount) {
         throw std::out_of_range("Ship index out of range");
     }
-    return *(this->ships[index]);
+    return this->ships[index];
 }
 
 Ship& ShipManager::getAliveShip(unsigned short index){
@@ -47,7 +47,7 @@ ShipManager::~ShipManager() {
 std::ostream& operator<<(std::ostream& os, ShipManager& manager) {
     os << manager.getShipsCount() << '\n';
     for (size_t i = 0; i < manager.getShipsCount(); ++i) {
-        os << manager[i];
+        os << *manager[i];
     }
     return os;
 }
@@ -56,9 +56,10 @@ std::istream& operator>>(std::istream& is, ShipManager& manager) {
     is >> manager.shipCount;
 
     for (unsigned short i = 0; i < manager.shipCount; ++i) {
-        Ship* ship = new Ship(0, Horizontal);
+        Ship* ship = new Ship(0, Horizontal, 0, 0);
         is >> *ship;
         manager.addShip(ship);
+        manager.shipLengths.push_back(ship->getLength());
     }
 
     return is;

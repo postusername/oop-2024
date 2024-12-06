@@ -32,9 +32,8 @@ public:
     UserPlayer& getUser();
     ComputerPlayer& getAI();
 
-    void saveGame();
-    void loadGame(std::string filename);
-    bool checkSave(std::ifstream* inFile);
+    void saveGame(std::string filename, bool calc_checksum = false);
+    void loadGame(std::string filename, bool calc_checksum = true);
     friend std::ostream& operator<<(std::ostream& os, const GameState& state);
     friend std::istream& operator>>(std::istream& is, GameState& state);
 };

@@ -19,7 +19,7 @@ class ShipManager {
         bool allShipsDestroyed() const;
         int getAliveShipsCount() const;
         int getShipsCount() const;
-        Ship& operator[](unsigned short index);
+        Ship* operator[](unsigned short index);
         Ship& getAliveShip(unsigned short index);
         friend std::istream& operator>>(std::istream& is, ShipManager& manager);
         friend std::ostream& operator<<(std::ostream& os, ShipManager& manager);

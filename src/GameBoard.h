@@ -14,7 +14,7 @@ class GameBoard {
         std::vector<std::vector<Cell>> board;
         size_t height;
         size_t width;
-        void checkShipCoords(size_t x, size_t y, Ship& ship) const;
+        void checkShipCoords(size_t x, size_t y, Ship* ship) const;
         void checkAttackCoords(size_t x, size_t y) const;
 
     public:
@@ -25,7 +25,7 @@ class GameBoard {
         GameBoard(GameBoard&& other) noexcept ;
         GameBoard& operator=(const GameBoard &other);
         GameBoard& operator=(GameBoard &&other);
-        void placeShip(size_t x, size_t y, Ship& ship);
+        void placeShip(size_t x, size_t y, Ship* ship);
         void attackCell(size_t x, size_t y, int damage = 1);
         bool isShip(size_t x, size_t y) const;
         size_t getHeight() const;
