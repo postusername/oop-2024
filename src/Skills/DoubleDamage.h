@@ -5,9 +5,8 @@
 
 class DoubleDamage : public ISkill {
 private:
-    InputProcessor& inputProcessor;
 public:
-    DoubleDamage(InputProcessor& inputProcessor);
+    DoubleDamage();
     void apply() override;
     std::string getName() override;
 };

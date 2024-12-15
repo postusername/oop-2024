@@ -5,5 +5,5 @@
 
 class BombingFactory : public ISkillFactory {
 public:
-    ISkill* createAbility(InputProcessor &inputProcessor, GameBoard &aiBoard, ShipManager &aiShipManager) override;
+    ISkill* createAbility(GameBoard &aiBoard, ShipManager &aiShipManager) override;
 };

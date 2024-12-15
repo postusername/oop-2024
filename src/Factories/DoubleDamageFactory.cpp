@@ -1,5 +1,6 @@
 #include "DoubleDamageFactory.h"
 
-ISkill *DoubleDamageFactory::createAbility(InputProcessor &inputProcessor, GameBoard &aiBoard, ShipManager &aiShipManager) {
-    return new DoubleDamage(inputProcessor);
+
+ISkill *DoubleDamageFactory::createAbility(GameBoard &aiBoard, ShipManager &aiShipManager) {
+    return new DoubleDamage();
 }

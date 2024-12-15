@@ -13,11 +13,11 @@ add_executable(BattleShips
         src/Factories/DoubleDamageFactory.cpp
         src/Factories/ScannerFactory.cpp
         src/Factories/BombingFactory.cpp
-        src/Game/GameController.cpp
+        src/Game/Game.cpp
         src/Game/GameSettings.cpp
         src/Game/GameState.cpp
         src/IO/InputProcessor.cpp
-        src/IO/OutputProcessor.cpp
+        src/IO/oldOutputProcessor.cpp
         src/SkillManager.cpp
         src/Cell.cpp
         src/GameBoard.cpp

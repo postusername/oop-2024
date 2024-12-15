@@ -1,10 +1,11 @@
 #pragma once
 
 #include "../Skills/ISkill.h"
-#include "../IO/InputProcessor.h"
+#include "../GameBoard.h"
+#include "../ShipManager.h"
 
 class ISkillFactory {
 public:
-    virtual ISkill* createAbility(InputProcessor &inputProcessor, GameBoard &enemyBoard, ShipManager &enemyShipManager) = 0;
+    virtual ISkill* createAbility(GameBoard &enemyBoard, ShipManager &enemyShipManager) = 0;
     virtual ~ISkillFactory() = default;
 };

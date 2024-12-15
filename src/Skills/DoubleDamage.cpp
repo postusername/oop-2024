@@ -1,10 +1,9 @@
 #include "DoubleDamage.h"
 
-DoubleDamage::DoubleDamage(InputProcessor& inputProcessor) :
-    inputProcessor(inputProcessor) {};
+DoubleDamage::DoubleDamage(){};
 
 void DoubleDamage::apply(){
-    OutputProcessor::showMessage("Double Damage ability applied");
+    oldOutputProcessor::showMessage("Double Damage ability applied");
     inputProcessor.getFlag(flagType::DoubleDamage) = true;
 }
 

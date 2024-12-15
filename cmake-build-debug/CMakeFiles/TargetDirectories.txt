@@ -1,3 +1,0 @@
-/home/rendex/CLionProjects/BattleShips/cmake-build-debug/CMakeFiles/BattleShips.dir
-/home/rendex/CLionProjects/BattleShips/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/rendex/CLionProjects/BattleShips/cmake-build-debug/CMakeFiles/rebuild_cache.dir

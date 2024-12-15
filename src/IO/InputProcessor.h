@@ -3,7 +3,6 @@
 #include <unordered_map>
 #include <cstddef>
 #include <limits>
-#include "OutputProcessor.h"
 #include "../Ship.h"
 #include "../Game/GameSettings.h"
 

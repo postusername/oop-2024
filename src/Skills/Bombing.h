@@ -2,7 +2,6 @@
 
 #include "ISkill.h"
 #include "../ShipManager.h"
-#include "../IO/OutputProcessor.h"
 
 class Bombing : public ISkill {
 private:

@@ -12,19 +12,17 @@
 
 class SkillManager {
 private:
-    InputProcessor& inputProcessor;
     GameBoard enemyBoard;
     ShipManager enemyShipManager;
     std::vector<ISkillFactory*> factories;
     std::queue<ISkill*> abilities;
 
 public:
-    SkillManager(InputProcessor& inputProcessor, GameBoard& enemyBoard, ShipManager& enemyShipManager);
+    SkillManager(GameBoard& enemyBoard, ShipManager& enemyShipManager);
     ~SkillManager();
     void addSkill();
-    void applyAbility();
+    std::string applyAbility();
     void clearAbilities();
-    void showAbilities() const;
     friend std::ostream& operator<<(std::ostream& os, SkillManager& manager);
     friend std::istream& operator>>(std::istream& is, SkillManager& manager);
 };

@@ -1,11 +1,10 @@
 #include "Scanner.h"
 
-Scanner::Scanner(GameBoard &enemyBoard, InputProcessor &inputProcessor)
-    : enemyBoard(enemyBoard), inputProcessor(inputProcessor) {}
+Scanner::Scanner(GameBoard &enemyBoard) : enemyBoard(enemyBoard) {}
 
 void Scanner::apply()
 {
-    OutputProcessor::showMessage("Scanner ability applied");
+    oldOutputProcessor::showMessage("Scanner ability applied");
     inputProcessor.getFlag(flagType::Scanner) = true;
     auto coords = InputProcessor::readCoords();
     size_t x = coords.first, y = coords.second;

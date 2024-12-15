@@ -2,7 +2,7 @@
 
 std::pair<size_t, size_t> InputProcessor::readCoords() {
     size_t x, y;
-    OutputProcessor::showMessage("Enter x, y coordinates:");
+    oldOutputProcessor::showMessage("Enter x, y coordinates:");
     
     while (true) {
         std::cin >> x >> y;
@@ -19,7 +19,7 @@ std::pair<size_t, size_t> InputProcessor::readCoords() {
 GameSettings* InputProcessor::readGameMode() {
     while (true) {
         try {
-            OutputProcessor::showMessage("Enter game mode (1 for easy, 2 for hard, 3 for test):");
+            oldOutputProcessor::showMessage("Enter game mode (1 for easy, 2 for hard, 3 for test):");
             
             int mode;
             std::cin >> mode;
@@ -47,7 +47,7 @@ GameSettings* InputProcessor::readGameMode() {
 }
 
 bool InputProcessor::readStartNewGame() {
-    OutputProcessor::showMessage("Start new game? (y/n)");
+    oldOutputProcessor::showMessage("Start new game? (y/n)");
     std::string answer;
     while (true) {
         std::cin >> answer;
@@ -71,7 +71,7 @@ bool InputProcessor::readStartNewGame() {
 
 Orientation InputProcessor::readShipOrientation() {
     char orientationInput;
-    OutputProcessor::showMessage("Enter orientation (H for Horizontal, V for Vertical): ");
+    oldOutputProcessor::showMessage("Enter orientation (H for Horizontal, V for Vertical): ");
     while (true) {
         std::cin >> orientationInput;
         
@@ -93,13 +93,13 @@ Orientation InputProcessor::readShipOrientation() {
 }
 
 Option InputProcessor::readOption() {
-    OutputProcessor::showMessage("Choose an option:");
-    OutputProcessor::showMessage("1. Shoot");
-    OutputProcessor::showMessage("2. Use ability and shoot");
-    OutputProcessor::showMessage("3. Save game");
-    OutputProcessor::showMessage("4. Exit");
-    OutputProcessor::showMessage("5. Load game");
-    OutputProcessor::showMessage("Your choice:");
+    oldOutputProcessor::showMessage("Choose an option:");
+    oldOutputProcessor::showMessage("1. Shoot");
+    oldOutputProcessor::showMessage("2. Use ability and shoot");
+    oldOutputProcessor::showMessage("3. Save game");
+    oldOutputProcessor::showMessage("4. Exit");
+    oldOutputProcessor::showMessage("5. Load game");
+    oldOutputProcessor::showMessage("Your choice:");
     
     while (true) {
         try {

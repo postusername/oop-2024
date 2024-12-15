@@ -6,5 +6,5 @@
 
 class DoubleDamageFactory : public ISkillFactory {
 public:
-    ISkill* createAbility(InputProcessor &inputProcessor, GameBoard &enemyBoard, ShipManager &enemyShipManager) override;
+    ISkill* createAbility(GameBoard &enemyBoard, ShipManager &enemyShipManager) override;
 };

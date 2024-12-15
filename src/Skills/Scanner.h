@@ -8,9 +8,8 @@
 class Scanner : public ISkill {
 private:
     GameBoard& enemyBoard;
-    InputProcessor& inputProcessor;
 public:
-    Scanner(GameBoard& enemyBoard, InputProcessor& inputProcessor);
+    Scanner(GameBoard& enemyBoard);
     void apply() override;
     std::string getName() override;
 };

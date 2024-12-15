@@ -4,7 +4,6 @@ Bombing::Bombing(ShipManager& enemyShipManager)
     : enemyShipManager(enemyShipManager){}
 
 void Bombing::apply() {
-    OutputProcessor::showMessage("Bombing ability applied");
     int shipCount = enemyShipManager.getAliveShipsCount();
     int randomChoice = rand() % shipCount;
     Ship& ship = enemyShipManager.getAliveShip(randomChoice);

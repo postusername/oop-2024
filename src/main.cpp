@@ -1,12 +1,12 @@
-#include "Game/GameController.h"
+#include "Game/Game.h"
 
 
 int main(int argc, char** argv) {
-    GameController* game;
+    Game* game;
     if (argc > 2 && std::string(argv[1]) == "--save")
-        game = new GameController(argv[2]);
+        game = new Game(argv[2]);
     else
-        game = new GameController();
+        game = new Game();
     game->startNewGame();
     return 0;
 }

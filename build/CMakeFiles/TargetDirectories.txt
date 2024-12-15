@@ -1,3 +1,0 @@
-/home/postusername/Projects/labs/oop/v0.3/build/CMakeFiles/BattleShips.dir
-/home/postusername/Projects/labs/oop/v0.3/build/CMakeFiles/edit_cache.dir
-/home/postusername/Projects/labs/oop/v0.3/build/CMakeFiles/rebuild_cache.dir

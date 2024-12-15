@@ -1,5 +1,5 @@
 #include "BombingFactory.h"
 
-ISkill* BombingFactory::createAbility(InputProcessor &inputProcessor, GameBoard &aiBoard, ShipManager &aiShipManager) {
+ISkill* BombingFactory::createAbility(GameBoard &aiBoard, ShipManager &aiShipManager) {
     return new Bombing(aiShipManager);
 }

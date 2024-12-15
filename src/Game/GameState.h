@@ -16,14 +16,13 @@
 class GameState {
 private:
     size_t roundNumber;
-    GameSettings* gameMode;
-    InputProcessor* inputProcessor;
+    GameSettings gameMode;
     UserPlayer* user;
     ComputerPlayer* ai;
 
 public:
-    GameState(std::string filename, InputProcessor* inputProcessor);
-    GameState(GameSettings* gameMode, InputProcessor* inputProcessor);
+    GameState(std::string filename);
+    GameState(GameSettings gameMode, std::vector<Orientation> orientations, std::vector<std::pair<size_t, size_t>> coords);
     ~GameState();
     void incrementRoundNumber();
     void resetRoundNumber();
