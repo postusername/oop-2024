@@ -5,6 +5,6 @@
 class ISkill {
 public:
     virtual ~ISkill() = default;
-    virtual void apply() = 0;
+    virtual void apply(size_t ax, size_t ay) = 0;
     virtual std::string getName() = 0;
 };

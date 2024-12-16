@@ -2,6 +2,7 @@
 
 #include <unordered_map>
 #include <string>
+#include <stdexcept>
 
 enum class Command {
     Shoot,

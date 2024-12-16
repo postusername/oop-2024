@@ -36,23 +36,16 @@ void UserPlayer::createShips(const GameSettings &gameMode,
         bool validInput = false;
         while (!validInput)
         {
-            try
-            {
-                Orientation orientation = orientations[i];
-                auto ccoords = coords[i];
-                size_t x = ccoords.first, y = ccoords.second;
+            Orientation orientation = orientations[i];
+            auto ccoords = coords[i];
+            size_t x = ccoords.first, y = ccoords.second;
 
-                Ship *currentShip = new Ship(gameMode.shipLengths[i], orientation, x, y);
-                userShipManager->addShip(currentShip);
+            Ship *currentShip = new Ship(gameMode.shipLengths[i], orientation, x, y);
+            userShipManager->addShip(currentShip);
 
-                userBoard->placeShip(x, y, currentShip);
+            userBoard->placeShip(x, y, currentShip);
 
-                validInput = true;
-            }
-            catch (const ShipException &e)
-            {
-                std::cerr << "Error: " << e.what() << std::endl;
-            }
+            validInput = true;
         }
     }
 }

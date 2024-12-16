@@ -8,6 +8,6 @@ private:
     ShipManager& enemyShipManager;
 public:
     Bombing(ShipManager& enemyShipManager);
-    void apply() override;
+    void apply(size_t ax, size_t ay) override;
     std::string getName() override;
 };

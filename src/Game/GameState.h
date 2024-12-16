@@ -11,7 +11,6 @@
 #include "../SkillManager.h"
 #include "../Players/ComputerPlayer.h"
 #include "../Players/UserPlayer.h"
-#include "../IO/InputProcessor.h"
 
 class GameState {
 private:

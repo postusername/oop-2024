@@ -18,13 +18,13 @@ SkillManager::SkillManager(GameBoard &enemyBoard, ShipManager &enemyShipManager)
     }
 }
 
-std::string SkillManager::applyAbility()
+std::string SkillManager::applyAbility(size_t ax, size_t ay)
 {
     if (abilities.empty())
     {
         throw NoAbilitiesAvailableException();
     }
-    abilities.front()->apply();
+    abilities.front()->apply(ax, ay);
     std::string name = abilities.front()->getName();
     delete abilities.front();
     abilities.pop();

@@ -1,12 +1,11 @@
 #pragma once
 
 #include "ISkill.h"
-#include "../IO/InputProcessor.h"
 
 class DoubleDamage : public ISkill {
 private:
 public:
     DoubleDamage();
-    void apply() override;
+    void apply(size_t ax, size_t ay) override;
     std::string getName() override;
 };

@@ -58,10 +58,8 @@ void GameState::saveGame(std::string filename, bool calc_checksum)
     if (calc_checksum)
     {
         inFile.open(filename); // НЕ РАБОТАЕТ ЕСЛИ ОТКРЫТЬ В КОНСТРУКТОРЕ ИЛИ СОЗДАТЬ ТУТ
-        if (!inFile)
-        {
-            std::cerr << "Error while reopening file for saving game state!" << std::endl;
-            exit(1);
+        if (!inFile) {
+            throw std::invalid_argument("Error while reopening file for saving game state!");
         }
 
         while (inFile.peek() != EOF)
@@ -74,10 +72,8 @@ void GameState::saveGame(std::string filename, bool calc_checksum)
     }
 
     std::ofstream outFile(filename, std::ios::trunc | std::ios::binary);
-    if (!outFile)
-    {
-        std::cerr << "Error opening file for saving game state!" << std::endl;
-        exit(1);
+    if (!outFile) {
+        throw std::invalid_argument("Error while opening file for saving game state!");
     }
     if (calc_checksum)
         outFile << check_sum << '\n';
@@ -91,10 +87,8 @@ void GameState::loadGame(std::string filename, bool calc_checksum)
 {
     unsigned char check_sum = 0;
     std::ifstream inFile(filename, std::ios::binary);
-    if (!inFile)
-    {
-        std::cerr << "Error opening file for loading game state!" << std::endl;
-        exit(1);
+    if (!inFile) {
+        throw std::invalid_argument("Error while opening file for loading game state!");
     }
 
     if (calc_checksum)
@@ -107,10 +101,8 @@ void GameState::loadGame(std::string filename, bool calc_checksum)
         }
         inFile.close();
 
-        if (check_sum != 0)
-        {
-            std::cerr << "Saving is broken!" << std::endl;
-            exit(1);
+        if (check_sum != 0) {
+            throw std::invalid_argument("Saving is broken!");
         }
 
         loadGame(filename, !calc_checksum);

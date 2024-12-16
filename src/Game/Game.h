@@ -12,7 +12,8 @@
 enum class GameStatus {
     InProgress,
     GameOver,
-    GameWin
+    GameWin,
+    Exit
 };
 
 class Game {
@@ -28,12 +29,14 @@ public:
     Game(std::string filename);
 
     void shoot(size_t x, size_t y, bool double_damage);
-    void useAbilityAndShoot(size_t x, size_t y);
+    void useAbilityAndShoot(size_t x, size_t y, size_t ax, size_t ay);
     void saveGame(std::string filename);
 
-    void new_round(GameSettings& settings);
+    void newRound(GameSettings& settings);
+    void endGame();
 
     GameStatus getGameStatus();
+    size_t getRoundNumber();
 
     ~Game();
 };

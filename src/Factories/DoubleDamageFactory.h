@@ -2,7 +2,6 @@
 
 #include "ISkillFactory.h"
 #include "../Skills/DoubleDamage.h"
-#include "../IO/InputProcessor.h"
 
 class DoubleDamageFactory : public ISkillFactory {
 public:

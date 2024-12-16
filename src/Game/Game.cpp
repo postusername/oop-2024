@@ -1,12 +1,13 @@
 #include "Game.h"
 
+
 Game::Game(GameSettings settings, std::vector<Orientation> orientations, std::vector<std::pair<size_t, size_t>> coords) {
     this->gameStatus = GameStatus::InProgress;
     this->view.print("Placing \033[34myour ships...\033[39m");
     this->gameState = new GameState(settings, orientations, coords);
     this->view = GameView<CLIRenderer<CLIBoardRenderer>>();
     
-    this->view.print("Generate \033[31mAI ships:\033[39m");
+    this->view.print("Generate \033[31mAI ships...\033[39m");
     this->gameState->getAI().createShips(settings);
 
     this->view.render(this->gameState);
@@ -27,14 +28,14 @@ void Game::shoot(size_t x, size_t y, bool double_damage = false) {
     if (this->gameState->getAI().getShipManager().getAliveShipsCount() < aliveShipsCount) {
         this->gameState->getUser().getAbilityManager().addSkill();
     }
-    this->view.render(this->gameState);
 
     this->ai_move();
+    this->view.render(this->gameState);
 }
 
-void Game::useAbilityAndShoot(size_t x, size_t y)
+void Game::useAbilityAndShoot(size_t x, size_t y, size_t ax, size_t ay)
 {
-    std::string ability_name = this->gameState->getUser().getAbilityManager().applyAbility();
+    std::string ability_name = this->gameState->getUser().getAbilityManager().applyAbility(ax, ay);
     this->view.print(ability_name + " ability applied!");
     bool double_damage = false;
     if (ability_name == "DoubleDamage")
@@ -49,18 +50,27 @@ void Game::useAbilityAndShoot(size_t x, size_t y)
 }
 
 void Game::saveGame(std::string filename) {
-    this->gameState->saveGame(filename);
-    this->view.print("Game state saved successfully!");
+    try {
+        this->gameState->saveGame(filename);
+        this->view.print("Game state saved successfully!");
+    } catch (std::exception e) {
+        this->view.print(e.what());
+    }
 }
 
-void Game::new_round(GameSettings& settings) {
+void Game::newRound(GameSettings &settings) {
     gameState->incrementRoundNumber();
 
     this->gameStatus = GameStatus::InProgress;
-    this->view.print("Generate \033[31mAI ships:\033[39m");
+    this->view.print("New round!");
+    this->view.print("Generate \033[31mAI ships...\033[39m");
     this->gameState->getAI().createShips(settings);
 
     this->view.render(this->gameState);
+}
+
+void Game::endGame() {
+    this->gameStatus = GameStatus::Exit;
 }
 
 void Game::ai_move()
@@ -77,6 +87,11 @@ void Game::ai_move()
 
 GameStatus Game::getGameStatus() {
     return this->gameStatus;
+}
+
+size_t Game::getRoundNumber()
+{
+    return this->gameState->getRoundNumber();
 }
 
 Game::~Game() {
