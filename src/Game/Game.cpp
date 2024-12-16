@@ -18,7 +18,7 @@ template <typename RendererT>
 Game<RendererT>::Game(std::string filename) {
     this->gameStatus = GameStatus::InProgress;
     this->gameState = new GameState(filename);
-    this->view = GameView<CLIRenderer<CLIBoardRenderer>>();
+    this->view = GameView<RendererT>();
     this->view.print("Game state loaded successfully!");
 
     this->view.render(this->gameState);

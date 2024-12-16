@@ -2,7 +2,9 @@
 
 
 template <typename RendererT>
-inline GameView<RendererT>::GameView() : renderer() {}
+inline GameView<RendererT>::GameView() {
+    this->renderer = RendererT();
+}
 
 template <typename RendererT>
 void GameView<RendererT>::render(GameState* state)

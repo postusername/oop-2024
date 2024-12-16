@@ -17,7 +17,7 @@ std::string CLIRenderer<BoardRendererT>::render_user_ships(ShipManager &shipMana
 }
 
 template <typename BoardRendererT>
-inline CLIRenderer<BoardRendererT>::CLIRenderer() : renderer() {}
+CLIRenderer<BoardRendererT>::CLIRenderer() : renderer() {}
 
 template <typename BoardRendererT>
 void CLIRenderer<BoardRendererT>::draw_boards(GameBoard& userBoard, GameBoard& aiBoard)

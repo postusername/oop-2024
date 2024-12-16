@@ -3,8 +3,6 @@
 
 #include "../Players/ComputerPlayer.h"
 #include "../Players/UserPlayer.h"
-#include "../IO/CLIBoardRenderer.h"
-#include "../IO/CLIRenderer.h"
 #include "GameView.h"
 #include "GameState.h"
 

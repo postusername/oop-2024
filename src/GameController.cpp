@@ -1,7 +1,9 @@
 #include "GameController.h"
 
+
 template <typename InputProcessor, typename OutputProcessor>
-GameController<InputProcessor, OutputProcessor>::GameController() : inputProcessor() {
+GameController<InputProcessor, OutputProcessor>::GameController() {
+    this->inputProcessor = InputProcessor();
     this->restart();
 }
 
@@ -27,7 +29,7 @@ void GameController<InputProcessor, OutputProcessor>::restart() {
     while (incorrect_input) {
         try {
             auto [orientations, coords] = this->inputProcessor->getInitialShips(this->settings);
-            this->game = Game(this->settings);
+            this->game = Game<OutputProcessor>(this->settings, orientations, coords);
             incorrect_input = false;
         } catch (const std::exception &e) {
             std::cerr << "Error: " << e.what() << std::endl;
