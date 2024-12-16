@@ -4,8 +4,7 @@ Scanner::Scanner(GameBoard &enemyBoard) : enemyBoard(enemyBoard) {}
 
 void Scanner::apply()
 {
-    oldOutputProcessor::showMessage("Scanner ability applied");
-    inputProcessor.getFlag(flagType::Scanner) = true;
+    enemyBoard.ship_found = false;
     auto coords = InputProcessor::readCoords();
     size_t x = coords.first, y = coords.second;
     if (x >= enemyBoard.getWidth() || y >= enemyBoard.getHeight()){
@@ -13,13 +12,13 @@ void Scanner::apply()
     }
     for(size_t i = x; i < x + 2; i++){
         for(size_t j = y; j < y + 2; j++){
-            if(enemyBoard.isShip(j, i)){
-                inputProcessor.getFlag(flagType::ShipFound) = true;
+            if (enemyBoard.isShip(j, i)){
+                enemyBoard.ship_found = true;
                 return;
             }
         }
     }
-    inputProcessor.getFlag(flagType::ShipFound) = false;
+    enemyBoard.ship_found = false;
 }
 
 std::string Scanner::getName() {

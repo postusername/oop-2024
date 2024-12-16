@@ -83,9 +83,7 @@ void GameState::saveGame(std::string filename, bool calc_checksum)
         outFile << check_sum << '\n';
     outFile << *this;
     outFile.close();
-    if (calc_checksum)
-        std::cout << "Game state saved successfully!" << std::endl;
-    else
+    if (!calc_checksum)
         saveGame(filename, !calc_checksum);
 }
 
@@ -121,7 +119,6 @@ void GameState::loadGame(std::string filename, bool calc_checksum)
     {
         inFile >> check_sum;
         inFile >> *this;
-        std::cout << "Game state loaded successfully!" << std::endl;
     }
 }
 

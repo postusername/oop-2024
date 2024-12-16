@@ -2,10 +2,7 @@
 
 DoubleDamage::DoubleDamage(){};
 
-void DoubleDamage::apply(){
-    oldOutputProcessor::showMessage("Double Damage ability applied");
-    inputProcessor.getFlag(flagType::DoubleDamage) = true;
-}
+void DoubleDamage::apply() {}
 
 std::string DoubleDamage::getName() {
     return "DoubleDamage";

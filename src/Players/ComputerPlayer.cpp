@@ -27,7 +27,6 @@ void ComputerPlayer::createShips(const GameSettings& gameMode) {
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> orientationDist(0, 1);
 
-    std::cout << "Generate \033[31mAI ships:\033[39m" << std::endl;
     for (unsigned short shipLength : gameMode.shipLengths) {
         std::vector<std::pair<unsigned short, unsigned short>> candidates;
         for (size_t x = 0; x < aiBoard->getWidth(); ++x) {
@@ -46,7 +45,6 @@ void ComputerPlayer::createShips(const GameSettings& gameMode) {
 
             Ship* currentShip = new Ship(shipLength, isHorizontal ? Orientation::Horizontal : Orientation::Vertical, startX, startY);
             try {
-                std::cout << "\tLen: " << shipLength << ", start X=" << startX << ", start Y=" << startY << ", isHorizontal=" << isHorizontal << std::endl;
                 aiBoard->placeShip(startX, startY, currentShip);
                 aiShipManager->addShip(currentShip);
                 placed = true;

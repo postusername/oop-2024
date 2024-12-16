@@ -11,7 +11,8 @@
 
 enum class GameStatus {
     InProgress,
-    GameOver
+    GameOver,
+    GameWin
 };
 
 class Game {
@@ -20,6 +21,8 @@ private:
     GameState* gameState;
 
     GameView<CLIRenderer<CLIBoardRenderer>> view;
+
+    void ai_move();
 public:
     Game(GameSettings settings, std::vector<Orientation> orientations, std::vector<std::pair<size_t, size_t>> coords);
     Game(std::string filename);
@@ -27,6 +30,10 @@ public:
     void shoot(size_t x, size_t y, bool double_damage);
     void useAbilityAndShoot(size_t x, size_t y);
     void saveGame(std::string filename);
+
+    void new_round(GameSettings& settings);
+
+    GameStatus getGameStatus();
 
     ~Game();
 };

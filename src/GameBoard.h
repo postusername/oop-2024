@@ -16,8 +16,8 @@ class GameBoard {
         size_t width;
         void checkShipCoords(size_t x, size_t y, Ship* ship) const;
         void checkAttackCoords(size_t x, size_t y) const;
-
     public:
+        bool ship_found = false;
         const Cell& operator()(size_t x, size_t y);
         GameBoard() = default;
         GameBoard(size_t height, size_t width);
