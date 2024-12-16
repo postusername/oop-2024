@@ -24,7 +24,6 @@ public:
     GameState(GameSettings gameMode, std::vector<Orientation> orientations, std::vector<std::pair<size_t, size_t>> coords);
     ~GameState();
     void incrementRoundNumber();
-    void resetRoundNumber();
     size_t getRoundNumber() const;
     GameSettings getGameMode();
     UserPlayer& getUser();
