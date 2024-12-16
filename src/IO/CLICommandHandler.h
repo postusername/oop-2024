@@ -1,7 +1,15 @@
 #pragma once
 
 #include <unordered_map>
-#include "../GameController.h"
+#include <string>
+
+enum class Command {
+    Shoot,
+    UseAbility,
+    Save,
+    Load,
+    Exit
+};
 
 class CLICommandHandler {
 private:
