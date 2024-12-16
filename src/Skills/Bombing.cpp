@@ -1,9 +1,8 @@
 #include "Bombing.h"
 
-Bombing::Bombing(ShipManager& enemyShipManager)
-    : enemyShipManager(enemyShipManager){}
+Bombing::Bombing(ShipManager& enemyShipManager) {}
 
-void Bombing::apply(size_t ax, size_t ay) {
+void Bombing::apply(size_t ax, size_t ay, GameBoard &enemyBoard, ShipManager &enemyShipManager) {
     int shipCount = enemyShipManager.getAliveShipsCount();
     int randomChoice = rand() % shipCount;
     Ship& ship = enemyShipManager.getAliveShip(randomChoice);

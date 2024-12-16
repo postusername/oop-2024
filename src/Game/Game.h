@@ -67,7 +67,8 @@ void Game<RendererT>::shoot(size_t x, size_t y, bool double_damage) {
     int aliveShipsCount = this->gameState->getAI().getShipManager().getAliveShipsCount();
     this->gameState->getAI().getGameBoard().attackCell(x, y, double_damage ? 2 : 1);
     if (this->gameState->getAI().getShipManager().getAliveShipsCount() < aliveShipsCount) {
-        this->gameState->getUser().getAbilityManager().addSkill();
+        this->gameState->getUser().getAbilityManager().addSkill(this->gameState->getAI().getGameBoard(),
+                                                                this->gameState->getAI().getShipManager());
     }
 
     this->ai_move();
@@ -77,18 +78,22 @@ void Game<RendererT>::shoot(size_t x, size_t y, bool double_damage) {
 template <typename RendererT>
 void Game<RendererT>::useAbilityAndShoot(size_t x, size_t y, size_t ax, size_t ay)
 {
-    std::string ability_name = this->gameState->getUser().getAbilityManager().applyAbility(ax, ay);
-    this->view.print(ability_name + " ability applied!");
-    bool double_damage = false;
-    if (ability_name == "DoubleDamage")
-        double_damage = true;
-    else if (ability_name == "Scanner") {
-        if (this->gameState->getAI().getGameBoard().ship_found)
-            this->view.print("Ship found!");
-        else
-            this->view.print("Ship does not found!");
+    try {
+        std::string ability_name = this->gameState->getUser().getAbilityManager().applyAbility(ax, ay, this->gameState->getAI().getGameBoard(), this->gameState->getAI().getShipManager());
+        this->view.print(ability_name + " ability applied!");
+        bool double_damage = false;
+        if (ability_name == "DoubleDamage")
+            double_damage = true;
+        else if (ability_name == "Scanner") {
+            if (this->gameState->getAI().getGameBoard().ship_found)
+                this->view.print("Ship found!");
+            else
+                this->view.print("Ship does not found!");
+        }
+        this->shoot(x, y, double_damage);
+    } catch (NoAbilitiesAvailableException e) {
+        this->view.print("No abilities available!");
     }
-    this->shoot(x, y, double_damage);
 }
 
 template <typename RendererT>

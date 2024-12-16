@@ -20,8 +20,8 @@ private:
 public:
     SkillManager(GameBoard& enemyBoard, ShipManager& enemyShipManager);
     ~SkillManager();
-    void addSkill();
-    std::string applyAbility(size_t ax, size_t ay);
+    void addSkill(GameBoard &enemyBoard, ShipManager &enemyShipManager);
+    std::string applyAbility(size_t ax, size_t ay, GameBoard &enemyBoard, ShipManager &enemyShipManager);
     void clearAbilities();
     friend std::ostream& operator<<(std::ostream& os, SkillManager& manager);
     friend std::istream& operator>>(std::istream& is, SkillManager& manager);

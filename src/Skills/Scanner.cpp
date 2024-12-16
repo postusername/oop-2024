@@ -1,8 +1,8 @@
 #include "Scanner.h"
 
-Scanner::Scanner(GameBoard &enemyBoard) : enemyBoard(enemyBoard) {}
+Scanner::Scanner(GameBoard &enemyBoard) {}
 
-void Scanner::apply(size_t ax, size_t ay)
+void Scanner::apply(size_t ax, size_t ay, GameBoard &enemyBoard, ShipManager &enemyShipManager)
 {
     enemyBoard.ship_found = false;
     if (ax >= enemyBoard.getWidth() || ay >= enemyBoard.getHeight()){

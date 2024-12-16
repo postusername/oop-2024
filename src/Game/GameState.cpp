@@ -11,6 +11,7 @@ GameState::GameState(GameSettings gameMode, std::vector<Orientation> orientation
     this->roundNumber = 1;
     this->gameMode = gameMode;
     this->ai = new ComputerPlayer();
+    this->ai->createShips(gameMode);
     this->user = new UserPlayer(this->ai->getGameBoard(), this->ai->getShipManager());
     this->user->createShips(gameMode, orientations, coords);
 }

@@ -3,6 +3,7 @@
 #include <string>
 #include "Game/Game.h"
 #include "IO/CLICommandHandler.h"
+#include "Exceptions/SkillException.h"
 
 template <typename InputProcessor, typename OutputProcessor>
 class GameController {

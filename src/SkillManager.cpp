@@ -18,20 +18,20 @@ SkillManager::SkillManager(GameBoard &enemyBoard, ShipManager &enemyShipManager)
     }
 }
 
-std::string SkillManager::applyAbility(size_t ax, size_t ay)
+std::string SkillManager::applyAbility(size_t ax, size_t ay, GameBoard &enemyBoard, ShipManager &enemyShipManager)
 {
     if (abilities.empty())
     {
         throw NoAbilitiesAvailableException();
     }
-    abilities.front()->apply(ax, ay);
+    abilities.front()->apply(ax, ay, enemyBoard, enemyShipManager);
     std::string name = abilities.front()->getName();
     delete abilities.front();
     abilities.pop();
     return name;
 }
 
-void SkillManager::addSkill()
+void SkillManager::addSkill(GameBoard &enemyBoard, ShipManager &enemyShipManager)
 {
     int randomChoice = rand() % factories.size();
     abilities.push(factories[randomChoice]->createAbility(enemyBoard, enemyShipManager));
