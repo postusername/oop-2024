@@ -59,11 +59,11 @@ template <typename InputProcessor>
 void GameController<InputProcessor>::makeMove() {
     Command user_choice = this->inputProcessor->askForCommand();
     if (user_choice == Command::Shoot) {
-        auto [x, y] = this->inputProcessor->askForFirePoint();
+        auto [x, y] = this->inputProcessor->askForFirePoint(this->settings);
         this->game->shoot(x, y);
     } else if (user_choice == Command::UseAbility) {
-        auto [x, y] = this->inputProcessor->askForFirePoint();
-        auto [ax, ay] = this->inputProcessor->askForAbilityPoint();
+        auto [x, y] = this->inputProcessor->askForFirePoint(this->settings);
+        auto [ax, ay] = this->inputProcessor->askForAbilityPoint(this->settings);
         this->game->useAbilityAndShoot(x, y, ax, ay);
     } else if (user_choice == Command::Save) {
         std::string filename = this->inputProcessor->askForFilename();

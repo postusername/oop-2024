@@ -1,25 +1,14 @@
 #include "InputProcessor.h"
+#include "CLIInputProcessor.h"
 
-std::pair<size_t, size_t> InputProcessor::readCoords() {
-    size_t x, y;
-    oldOutputProcessor::showMessage("Enter x, y coordinates:");
-    
-    while (true) {
-        std::cin >> x >> y;
-        if (std::cin.fail()) {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cerr << "Error: Invalid input. Please enter valid coordinates." << std::endl;
-            continue;
-        }
-        return std::pair<size_t, size_t>{x - 1, y - 1};
-    }
-}
 
-GameSettings* InputProcessor::readGameMode() {
+
+
+
+GameSettings& InputProcessor::getGameMode() {
     while (true) {
         try {
-            oldOutputProcessor::showMessage("Enter game mode (1 for easy, 2 for hard, 3 for test):");
+            std::cout << "Enter game mode (1 for easy, 2 for hard, 3 for test):" << std::endl;
             
             int mode;
             std::cin >> mode;
@@ -32,11 +21,11 @@ GameSettings* InputProcessor::readGameMode() {
 
             switch (mode) {
                 case 1:
-                    return new GameSettings(10, std::vector<unsigned short>{3, 2, 2, 1, 1});
+                    return GameSettings(10, std::vector<unsigned short>{3, 2, 2, 1, 1});
                 case 2:
-                    return new GameSettings(7, std::vector<unsigned short>{4, 3, 2, 1});
+                    return GameSettings(7, std::vector<unsigned short>{4, 3, 2, 1});
                 case 3:
-                    return new GameSettings(4, std::vector<unsigned short>{2, 1});
+                    return GameSettings(4, std::vector<unsigned short>{2, 1});
                 default:
                     throw std::invalid_argument("Invalid game mode. Please enter 1, 2 or 3.");
             }
@@ -46,8 +35,8 @@ GameSettings* InputProcessor::readGameMode() {
     }
 }
 
-bool InputProcessor::readStartNewGame() {
-    oldOutputProcessor::showMessage("Start new game? (y/n)");
+bool InputProcessor::askForReset() {
+    std::cout << "Start new game? (y/n)" << std::endl;
     std::string answer;
     while (true) {
         std::cin >> answer;
@@ -69,28 +58,7 @@ bool InputProcessor::readStartNewGame() {
     }
 }
 
-Orientation InputProcessor::readShipOrientation() {
-    char orientationInput;
-    oldOutputProcessor::showMessage("Enter orientation (H for Horizontal, V for Vertical): ");
-    while (true) {
-        std::cin >> orientationInput;
-        
-        if (std::cin.fail()) {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cerr << "Error: Invalid input. Please enter 'H' or 'V'." << std::endl;
-            continue;
-        }
 
-        if (orientationInput == 'H' || orientationInput == 'h') {
-            return Orientation::Horizontal;
-        } else if (orientationInput == 'V' || orientationInput == 'v') {
-            return Orientation::Vertical;
-        } else {
-            std::cerr << "Error: Invalid orientation. Please enter 'H' or 'V'." << std::endl;
-        }
-    }
-}
 
 Option InputProcessor::readOption() {
     oldOutputProcessor::showMessage("Choose an option:");
@@ -123,12 +91,61 @@ Option InputProcessor::readOption() {
     }
 }
 
-bool &InputProcessor::getFlag(flagType flagName) {
-    return flags[flagName];
+std::pair<size_t, size_t> InputProcessor::askForFirePoint(GameSettings &settings) {
+    std::cout << "Enter x, y coordinates for ATTACK: " << std::endl;
+    return readCoords(settings);
 }
 
-void InputProcessor::resetFlags() {
-    for (auto &flag : flags) {
-        flag.second = false;
+std::pair<size_t, size_t> InputProcessor::askForAbilityPoint(GameSettings &settings) {
+    std::cout << "Enter x, y coordinates for SKILL: " << std::endl;
+    return readCoords(settings);
+}
+
+std::pair<std::vector<Orientation>, std::vector<std::pair<size_t, size_t>>> InputProcessor::getInitialShips(GameSettings settings) {
+    std::vector<Orientation> orientations;
+    std::vector<std::pair<size_t, size_t>> coords;
+    for (size_t i = 0; i < gameMode.shipLengths.size(); i++)
+    {
+        orientations.push_back(readShipOrientation());
+        std::cout << "Enter coordinates for ship " << i + 1 << ": " << std::endl;
+        coords.push_back(readCoords(settings));
+    }
+    return std::make_pair(orientations, coords);
+}
+
+Orientation InputProcessor::readShipOrientation() {
+    char orientationInput;
+    oldOutputProcessor::showMessage("Enter orientation (H for Horizontal, V for Vertical): ");
+    while (true) {
+        std::cin >> orientationInput;
+        
+        if (std::cin.fail()) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cerr << "Error: Invalid input. Please enter 'H' or 'V'." << std::endl;
+            continue;
+        }
+
+        if (orientationInput == 'H' || orientationInput == 'h') {
+            return Orientation::Horizontal;
+        } else if (orientationInput == 'V' || orientationInput == 'v') {
+            return Orientation::Vertical;
+        } else {
+            std::cerr << "Error: Invalid orientation. Please enter 'H' or 'V'." << std::endl;
+        }
+    }
+}
+
+std::pair<size_t, size_t> InputProcessor::readCoords(GameSettings settings) {
+    size_t x, y;
+    while (true) {
+        std::cin >> x >> y;
+        if (std::cin.fail() || x > settings.boardSize || y > settings.boardSize || x < 1 || y < 1) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cerr << "Error: Invalid input. Please enter valid coordinates." << std::endl;
+            continue;
+        }
+        return std::pair<size_t, size_t>{x - 1, y - 1};
     }
 }
