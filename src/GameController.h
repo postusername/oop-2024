@@ -2,12 +2,13 @@
 
 #include <string>
 #include "Game/Game.h"
-#include "../IO/CLICommandHandler.h"
+#include "IO/CLICommandHandler.h"
 
-template <typename InputProcessor>
+
+template <typename InputProcessor, typename OutputProcessor>
 class GameController {
 private:
-    Game* game;
+    Game<OutputProcessor>* game;
     InputProcessor inputProcessor;
     GameSettings settings;
 public:

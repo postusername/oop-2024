@@ -45,9 +45,9 @@ ComputerPlayer &GameState::getAI()
     return *ai;
 }
 
-GameSettings &GameState::getGameMode()
+GameSettings GameState::getGameMode()
 {
-    return *gameMode;
+    return gameMode;
 }
 
 void GameState::saveGame(std::string filename, bool calc_checksum)

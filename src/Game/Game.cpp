@@ -1,11 +1,12 @@
 #include "Game.h"
 
 
-Game::Game(GameSettings settings, std::vector<Orientation> orientations, std::vector<std::pair<size_t, size_t>> coords) {
+template <typename RendererT>
+Game<RendererT>::Game(GameSettings settings, std::vector<Orientation> orientations, std::vector<std::pair<size_t, size_t>> coords) {
     this->gameStatus = GameStatus::InProgress;
     this->view.print("Placing \033[34myour ships...\033[39m");
     this->gameState = new GameState(settings, orientations, coords);
-    this->view = GameView<CLIRenderer<CLIBoardRenderer>>();
+    this->view = GameView<RendererT>();
     
     this->view.print("Generate \033[31mAI ships...\033[39m");
     this->gameState->getAI().createShips(settings);
@@ -13,7 +14,8 @@ Game::Game(GameSettings settings, std::vector<Orientation> orientations, std::ve
     this->view.render(this->gameState);
 }
 
-Game::Game(std::string filename) {
+template <typename RendererT>
+Game<RendererT>::Game(std::string filename) {
     this->gameStatus = GameStatus::InProgress;
     this->gameState = new GameState(filename);
     this->view = GameView<CLIRenderer<CLIBoardRenderer>>();
@@ -22,7 +24,8 @@ Game::Game(std::string filename) {
     this->view.render(this->gameState);
 }
 
-void Game::shoot(size_t x, size_t y, bool double_damage = false) {
+template <typename RendererT>
+void Game<RendererT>::shoot(size_t x, size_t y, bool double_damage) {
     int aliveShipsCount = this->gameState->getAI().getShipManager().getAliveShipsCount();
     this->gameState->getAI().getGameBoard().attackCell(x, y, double_damage ? 2 : 1);
     if (this->gameState->getAI().getShipManager().getAliveShipsCount() < aliveShipsCount) {
@@ -33,7 +36,8 @@ void Game::shoot(size_t x, size_t y, bool double_damage = false) {
     this->view.render(this->gameState);
 }
 
-void Game::useAbilityAndShoot(size_t x, size_t y, size_t ax, size_t ay)
+template <typename RendererT>
+void Game<RendererT>::useAbilityAndShoot(size_t x, size_t y, size_t ax, size_t ay)
 {
     std::string ability_name = this->gameState->getUser().getAbilityManager().applyAbility(ax, ay);
     this->view.print(ability_name + " ability applied!");
@@ -49,7 +53,8 @@ void Game::useAbilityAndShoot(size_t x, size_t y, size_t ax, size_t ay)
     this->shoot(x, y, double_damage);
 }
 
-void Game::saveGame(std::string filename) {
+template <typename RendererT>
+void Game<RendererT>::saveGame(std::string filename) {
     try {
         this->gameState->saveGame(filename);
         this->view.print("Game state saved successfully!");
@@ -58,7 +63,8 @@ void Game::saveGame(std::string filename) {
     }
 }
 
-void Game::newRound(GameSettings &settings) {
+template <typename RendererT>
+void Game<RendererT>::newRound(GameSettings &settings) {
     gameState->incrementRoundNumber();
 
     this->gameStatus = GameStatus::InProgress;
@@ -69,11 +75,13 @@ void Game::newRound(GameSettings &settings) {
     this->view.render(this->gameState);
 }
 
-void Game::endGame() {
+template <typename RendererT>
+void Game<RendererT>::endGame() {
     this->gameStatus = GameStatus::Exit;
 }
 
-void Game::ai_move()
+template <typename RendererT>
+void Game<RendererT>::ai_move()
 {
     this->gameState->getAI().makeMove(this->gameState->getUser().getGameBoard());
     if (gameState->getUser().isDefeated()) {
@@ -85,16 +93,19 @@ void Game::ai_move()
     }
 }
 
-GameStatus Game::getGameStatus() {
+template <typename RendererT>
+GameStatus Game<RendererT>::getGameStatus() {
     return this->gameStatus;
 }
 
-size_t Game::getRoundNumber()
+template <typename RendererT>
+size_t Game<RendererT>::getRoundNumber()
 {
     return this->gameState->getRoundNumber();
 }
 
-Game::~Game() {
+template <typename RendererT>
+Game<RendererT>::~Game() {
     delete gameState;
 }
 

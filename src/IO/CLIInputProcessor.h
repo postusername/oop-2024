@@ -5,18 +5,22 @@
 #include <limits>
 #include "../Ship.h"
 #include "../Game/GameSettings.h"
+#include "CLICommandHandler.h"
 
-class InputProcessor {
+
+template <typename CommandHandlerT>
+class CLIInputProcessor {
 private:
-    std::unordered_map<flagType, bool> flags;
-    Orientation readShipOrientation();
-    static std::pair<size_t, size_t> readCoords(GameSettings& settings);
+    CommandHandlerT command_handler;
 
+    Orientation readShipOrientation();
+    std::pair<size_t, size_t> readCoords(GameSettings& settings);
 public:
+    CLIInputProcessor();
     bool askForReset();
     Command askForCommand();
     std::pair<size_t, size_t> askForFirePoint(GameSettings& settings);
     std::pair<size_t, size_t> askForAbilityPoint(GameSettings& settings);
-    GameSettings& getGameMode(GameSettings& settings);
+    GameSettings getGameMode();
     std::pair<std::vector <Orientation>, std::vector<std::pair<size_t, size_t>>> getInitialShips(GameSettings& settings);
 };

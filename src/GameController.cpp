@@ -1,26 +1,26 @@
 #include "GameController.h"
 
-template<typename InputProcessor>
-GameController<InputProcessor>::GameController(): inputProcessor() {
+template <typename InputProcessor, typename OutputProcessor>
+GameController<InputProcessor, OutputProcessor>::GameController() : inputProcessor() {
     this->restart();
 }
 
-template<typename InputProcessor>
-GameController<InputProcessor>::GameController(std::string filename) : inputProcessor() {
+template <typename InputProcessor, typename OutputProcessor>
+GameController<InputProcessor, OutputProcessor>::GameController(std::string filename) : inputProcessor() {
     try {
-        this->game = Game(filename);
+        this->game = new Game<OutputProcessor>(filename);
     } catch (std::exception e) {
         std::cerr << e.what() << std::endl;
     }
 }
 
-template <typename InputProcessor>
-GameController<InputProcessor>::~GameController() {
+template <typename InputProcessor, typename OutputProcessor>
+GameController<InputProcessor, OutputProcessor>::~GameController() {
     delete game;
 }
 
-template <typename InputProcessor>
-void GameController<InputProcessor>::restart() {
+template <typename InputProcessor, typename OutputProcessor>
+void GameController<InputProcessor, OutputProcessor>::restart() {
     this->settings = this->inputProcessor->getGameMode();
     bool incorrect_input = true;
     
@@ -35,8 +35,8 @@ void GameController<InputProcessor>::restart() {
     }
 }
 
-template <typename InputProcessor>
-void GameController<InputProcessor>::play() {
+template <typename InputProcessor, typename OutputProcessor>
+void GameController<InputProcessor, OutputProcessor>::play() {
     while (true) {
         while (this->game->getRoundNumber() <= 3 &&
                this->game->getGameStatus() != GameStatus::GameOver &&
@@ -55,8 +55,8 @@ void GameController<InputProcessor>::play() {
 }
 
 
-template <typename InputProcessor>
-void GameController<InputProcessor>::makeMove() {
+template <typename InputProcessor, typename OutputProcessor>
+void GameController<InputProcessor, OutputProcessor>::makeMove() {
     Command user_choice = this->inputProcessor->askForCommand();
     if (user_choice == Command::Shoot) {
         auto [x, y] = this->inputProcessor->askForFirePoint(this->settings);
@@ -71,7 +71,7 @@ void GameController<InputProcessor>::makeMove() {
     } else if (user_choice == Command::Load) {
         std::string filename = this->inputProcessor->askForFilename();
         try {
-            Game* saved_game = new Game(filename);
+            Game<OutputProcessor>* saved_game = new Game<OutputProcessor>(filename);
             delete this->game;
             this->game = saved_game;
         } catch (const std::exception &e) {
@@ -83,6 +83,6 @@ void GameController<InputProcessor>::makeMove() {
         std::cerr << "WTF man..." << std::endl;
     }
 
-    if (this->game->getGameStatus() == GameState::GameWin)
+    if (this->game->getGameStatus() == GameStatus::GameWin)
         this->game->newRound(this->settings);
 }

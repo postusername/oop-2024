@@ -16,19 +16,20 @@ enum class GameStatus {
     Exit
 };
 
+template <typename RendererT>
 class Game {
 private:
     GameStatus gameStatus;
     GameState* gameState;
 
-    GameView<CLIRenderer<CLIBoardRenderer>> view;
+    GameView<RendererT> view;
 
     void ai_move();
 public:
     Game(GameSettings settings, std::vector<Orientation> orientations, std::vector<std::pair<size_t, size_t>> coords);
     Game(std::string filename);
 
-    void shoot(size_t x, size_t y, bool double_damage);
+    void shoot(size_t x, size_t y, bool double_damage = false);
     void useAbilityAndShoot(size_t x, size_t y, size_t ax, size_t ay);
     void saveGame(std::string filename);
 

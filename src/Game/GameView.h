@@ -7,7 +7,6 @@ class GameView {
     RendererT renderer;
 public:
     GameView();
-    GameView operator=(GameView&&) = default;
     void render(GameState* state);
     void print(std::string message);
 };

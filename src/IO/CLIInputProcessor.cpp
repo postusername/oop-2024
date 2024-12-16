@@ -1,11 +1,8 @@
-#include "InputProcessor.h"
 #include "CLIInputProcessor.h"
 
 
-
-
-
-GameSettings& InputProcessor::getGameMode() {
+template <typename CommandHandlerT>
+GameSettings CLIInputProcessor<CommandHandlerT>::getGameMode() {
     while (true) {
         try {
             std::cout << "Enter game mode (1 for easy, 2 for hard, 3 for test):" << std::endl;
@@ -35,7 +32,12 @@ GameSettings& InputProcessor::getGameMode() {
     }
 }
 
-bool InputProcessor::askForReset() {
+template <typename CommandHandlerT>
+CLIInputProcessor<CommandHandlerT>::CLIInputProcessor() : command_handler() {}
+
+template <typename CommandHandlerT>
+bool CLIInputProcessor<CommandHandlerT>::askForReset()
+{
     std::cout << "Start new game? (y/n)" << std::endl;
     std::string answer;
     while (true) {
@@ -58,53 +60,39 @@ bool InputProcessor::askForReset() {
     }
 }
 
-
-
-Option InputProcessor::readOption() {
-    oldOutputProcessor::showMessage("Choose an option:");
-    oldOutputProcessor::showMessage("1. Shoot");
-    oldOutputProcessor::showMessage("2. Use ability and shoot");
-    oldOutputProcessor::showMessage("3. Save game");
-    oldOutputProcessor::showMessage("4. Exit");
-    oldOutputProcessor::showMessage("5. Load game");
-    oldOutputProcessor::showMessage("Your choice:");
+template <typename CommandHandlerT>
+Command CLIInputProcessor<CommandHandlerT>::askForCommand() {
+    std::cout << command_handler.list_commands() << std::endl;
     
     while (true) {
         try {
-            int choice;
+            char choice;
             std::cin >> choice;
-
-            if (std::cin.fail()) {
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                throw std::invalid_argument("Invalid input. Please enter a number between 1 and 5.");
-            }
-
-            if (choice < 1 || choice > 5) {
-                throw std::invalid_argument("Invalid choice. Please enter a number between 1 and 5.");
-            } else {
-                return static_cast<Option>(choice);
-            }
+            Command command = this->command_handler.getCommand(choice);
+            return command;
         } catch (const std::invalid_argument& e) {
             std::cerr << "Error: " << e.what() << std::endl;
         }
     }
 }
 
-std::pair<size_t, size_t> InputProcessor::askForFirePoint(GameSettings &settings) {
+template <typename CommandHandlerT>
+std::pair<size_t, size_t> CLIInputProcessor<CommandHandlerT>::askForFirePoint(GameSettings& settings) {
     std::cout << "Enter x, y coordinates for ATTACK: " << std::endl;
     return readCoords(settings);
 }
 
-std::pair<size_t, size_t> InputProcessor::askForAbilityPoint(GameSettings &settings) {
+template <typename CommandHandlerT>
+std::pair<size_t, size_t> CLIInputProcessor<CommandHandlerT>::askForAbilityPoint(GameSettings& settings) {
     std::cout << "Enter x, y coordinates for SKILL: " << std::endl;
     return readCoords(settings);
 }
 
-std::pair<std::vector<Orientation>, std::vector<std::pair<size_t, size_t>>> InputProcessor::getInitialShips(GameSettings settings) {
+template <typename CommandHandlerT>
+std::pair<std::vector<Orientation>, std::vector<std::pair<size_t, size_t>>> CLIInputProcessor<CommandHandlerT>::getInitialShips(GameSettings& settings) {
     std::vector<Orientation> orientations;
     std::vector<std::pair<size_t, size_t>> coords;
-    for (size_t i = 0; i < gameMode.shipLengths.size(); i++)
+    for (size_t i = 0; i < settings.shipLengths.size(); i++)
     {
         orientations.push_back(readShipOrientation());
         std::cout << "Enter coordinates for ship " << i + 1 << ": " << std::endl;
@@ -113,9 +101,10 @@ std::pair<std::vector<Orientation>, std::vector<std::pair<size_t, size_t>>> Inpu
     return std::make_pair(orientations, coords);
 }
 
-Orientation InputProcessor::readShipOrientation() {
+template <typename CommandHandlerT>
+Orientation CLIInputProcessor<CommandHandlerT>::readShipOrientation() {
     char orientationInput;
-    oldOutputProcessor::showMessage("Enter orientation (H for Horizontal, V for Vertical): ");
+    std::cout << "Enter orientation (H for Horizontal, V for Vertical): " << std::endl;
     while (true) {
         std::cin >> orientationInput;
         
@@ -136,7 +125,8 @@ Orientation InputProcessor::readShipOrientation() {
     }
 }
 
-std::pair<size_t, size_t> InputProcessor::readCoords(GameSettings settings) {
+template <typename CommandHandlerT>
+std::pair<size_t, size_t> CLIInputProcessor<CommandHandlerT>::readCoords(GameSettings& settings) {
     size_t x, y;
     while (true) {
         std::cin >> x >> y;

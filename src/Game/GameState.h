@@ -26,7 +26,7 @@ public:
     void incrementRoundNumber();
     void resetRoundNumber();
     size_t getRoundNumber() const;
-    GameSettings& getGameMode();
+    GameSettings getGameMode();
     UserPlayer& getUser();
     ComputerPlayer& getAI();
 

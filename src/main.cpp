@@ -1,12 +1,16 @@
-#include "Game/Game.h"
+#include "GameController.h"
+#include "IO/CLIInputProcessor.h"
+#include "IO/CLICommandHandler.h"
+#include "IO/CLIRenderer.h"
+#include "IO/CLIBoardRenderer.h"
 
 
 int main(int argc, char** argv) {
-    Game* game;
+    GameController<CLIInputProcessor<CLICommandHandler>, CLIRenderer<CLIBoardRenderer>>* gc;
     if (argc > 2 && std::string(argv[1]) == "--save")
-        game = new Game(argv[2]);
+        gc = new GameController<CLIInputProcessor<CLICommandHandler>, CLIRenderer<CLIBoardRenderer>>(argv[2]);
     else
-        game = new Game();
-    game->startNewGame();
+        gc = new GameController<CLIInputProcessor<CLICommandHandler>, CLIRenderer<CLIBoardRenderer>>();
+    gc->play();
     return 0;
 }
