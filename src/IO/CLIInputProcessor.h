@@ -16,7 +16,7 @@ private:
     Orientation readShipOrientation();
     std::pair<size_t, size_t> readCoords(GameSettings& settings);
 public:
-    CLIInputProcessor() : command_handler(CommandHandlerT()) { }
+    CLIInputProcessor() : command_handler(CommandHandlerT("keyboard_settings.txt")) { }
     bool askForReset();
     Command askForCommand();
     std::pair<size_t, size_t> askForFirePoint(GameSettings& settings);

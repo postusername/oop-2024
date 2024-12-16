@@ -41,7 +41,50 @@ CLICommandHandler::CLICommandHandler(const std::string &configFilePath) {
 }
 
 bool CLICommandHandler::loadFromFile(const std::string &filePath) {
-    return false;
+    std::ifstream file(filePath);
+    if (!file.is_open()) {
+        std::cerr << "Не удалось открыть файл конфигурации: " << filePath << std::endl;
+        return false;
+    }
+
+    std::unordered_map<char, Command> tempKeyToCommand;
+    std::string line;
+
+    while (std::getline(file, line)) {
+        std::istringstream iss(line);
+        char key;
+        std::string commandName;
+        if (!(iss >> key >> commandName)) {
+            std::cerr << "Ошибка в формате строки: " << line << std::endl;
+            return false;
+        }
+
+        Command command;
+        if (commandName == "Shoot") {
+            command = Command::Shoot;
+        } else if (commandName == "UseAbility") {
+            command = Command::UseAbility;
+        } else if (commandName == "Save") {
+            command = Command::Save;
+        } else if (commandName == "Load") {
+            command = Command::Load;
+        } else if (commandName == "Exit") {
+            command = Command::Exit;
+        } else {
+            std::cerr << "Неизвестная команда: " << commandName << std::endl;
+            return false;
+        }
+
+        if (tempKeyToCommand.find(key) != tempKeyToCommand.end()) {
+            std::cerr << "Дублирование клавиши: " << key << std::endl;
+            return false;
+        }
+
+        tempKeyToCommand[key] = command;
+    }
+
+    keyToCommand = std::move(tempKeyToCommand);
+    return true;
 }
 
 std::string CLICommandHandler::command2str(Command command)
